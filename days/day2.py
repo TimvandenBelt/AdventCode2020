@@ -79,6 +79,8 @@ class Day2:
 			if passwordLine.isCorrectCharPossition():
 				self.correctPos += 1
 
+		self.calculated = True
+
 	def part1(self):
 
 		if not self.calculated:
