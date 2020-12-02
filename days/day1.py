@@ -17,7 +17,7 @@ class Day1:
 
 		for number in self.numbers:
 			if self.twoString and self.threeString:
-				return
+				break
 
 			self.numbers.pop()
 
