@@ -29,6 +29,8 @@ class Day1:
 			if result and not self.threeString:
 				self.threeString = "{} * {} * {} = {}".format(result[0], result[1], result[2], result[0] * result[1] * result[2])
 
+		self.calculated = True
+
 	def part1(self):
 		if not self.calculated:
 			self.calculate()
