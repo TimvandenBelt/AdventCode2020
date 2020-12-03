@@ -49,7 +49,7 @@ class Day3:
 
 	def part1(self):
 		count = self.calculate(1, 3)
-		print('Amount of Trees found default patern')
+		print('Amount of Trees found default pattern')
 		print(count)
 
 	def part2(self):
@@ -63,4 +63,3 @@ class Day3:
 
 		print('Amount of Trees found with other patterns')
 		print(count)
-
