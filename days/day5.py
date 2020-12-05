@@ -49,6 +49,7 @@ class Day5:
 	seatIDs = []
 
 	def __init__(self):
+		self.test()
 		self.loadBoardingPasses()
 
 	def loadBoardingPasses(self):
@@ -64,6 +65,32 @@ class Day5:
 			self.seatIDs.append(boardingPass.getID())
 			if boardingPass.getID() >= self.highestID:
 				self.highestID = boardingPass.getID()
+
+	def test(self):
+		examples =[
+			"BFFFBBFRRR",
+			"FFFBBBFRRR",
+			"BBFFBBFRLL",
+		]
+
+		results = []
+		for example in examples:
+			boardpass = BoardingPass(example)
+			results.append([boardpass.getRow(), boardpass.getColumn(), boardpass.getID()])
+
+		correctResults = [
+			[70, 7, 567],
+			[14, 7, 119],
+			[102, 4, 820]
+		]
+
+		for i in range(0, len(results)):
+			if results[i][0] != correctResults[i][0] or results[i][1] != correctResults[i][1] or results[i][2] != correctResults[i][2]:
+				print('Day 5 test: \033[31failed\033[0m')
+				print('Received: {}'.format(results[i]))
+
+		print("Day 5 - test: \033[32msuccess\033[0m")
+
 
 	def part1(self):
 		print('Day 5 - part 1 result: {}'.format(self.highestID))
