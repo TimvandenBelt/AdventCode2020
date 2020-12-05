@@ -50,8 +50,8 @@ print(Back.BLUE + Fore.BLACK + "########## - NEXT DAY - #######")
 
 # START DAY 5
 print("\033[33m========= \033[30mBEGIN DAY 5\033[0m \033[33m=========\033[0m")
-# day5 = day5()
-# day5.part1()
-# day5.part2()
+day5 = Day5()
+day5.part1()
+day5.part2()
 print("\033[33m========= \033[37mEND DAY 5\033[0m \033[33m===========\033[0m")
 # END DAY 4
