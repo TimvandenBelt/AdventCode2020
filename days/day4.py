@@ -36,7 +36,7 @@ class Passport:
 		return True
 
 	def verifyPID(self):
-		m = re.search('(\d\d\d\d\d\d\d\d\d)', self.pid)
+		m = re.search('^(\d\d\d\d\d\d\d\d\d)$', self.pid)
 		try:
 			if m.group(1):
 				return True
