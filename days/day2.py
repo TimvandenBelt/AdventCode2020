@@ -1,4 +1,4 @@
-from util import fileUtil
+from util import file
 import re
 
 
@@ -36,18 +36,19 @@ class PasswordLine:
 
 	def isCorrectCharCount(self):
 		count = self.countCharOccurance()
-		min = self.parameters[0]
-		max = self.parameters[1]
+		min, max = self.parameters
 		if min <= count <= max:
 			return True
 		return False
 
 	def isCorrectCharPossition(self):
 		password = self.password
-		pos1 = self.parameters[0] - 1
-		pos2 = self.parameters[1] - 1
+		pos1, pos2 = self.parameters
 		character = self.character
+		pos1 -= 1
+		pos2 -= 1
 		try:
+			# @TODO could be better / simpler to read
 			if (password[pos1] is character and password[pos2] is not character) or (
 					password[pos1] is not character and password[pos2] is character):
 				return True
@@ -57,41 +58,47 @@ class PasswordLine:
 
 
 class Day2:
-	inputArray = []
 	passwordLines = []
-	correctCount = 0
-	correctPos = 0
-	calculated = False
+	correctPasswords = 0
+	correctPositions = 0
 
 	def __init__(self):
-		self.inputArray = fileUtil.returnArrayOfLinesFromFileInput('./inputs/inputday2')
-		for line in self.inputArray:
+		self.test()
+		self.setPasswordLines()
+
+	def setPasswordLines(self, array=None):
+		self.passwordLines = []
+		if not array:
+			array = file.fileToArray('./inputs/inputday2')
+		for line in array:
 			self.passwordLines.append(PasswordLine(line))
+		self.calculate()
 
 	def calculate(self):
-		if self.calculated:
-			self.correctPos = 0
-			self.correctCount = 0
+		self.correctPasswords = 0
+		self.correctPositions = 0
 
 		for passwordLine in self.passwordLines:
 			if passwordLine.isCorrectCharCount():
-				self.correctCount += 1
+				self.correctPasswords += 1
 			if passwordLine.isCorrectCharPossition():
-				self.correctPos += 1
+				self.correctPositions += 1
 
-		self.calculated = True
+	def test(self):
+		example = [
+			"1-3 a: abcde",
+			"1-3 b: cdefg",
+			"2-9 c: ccccccccc",
+		]
+		self.setPasswordLines(example)
+		if self.correctPasswords == 2:
+			print("Day 2 - test: \033[32msuccess\033[0m")
+		else:
+			print('Day 2 test: \033[31failed\033[0m')
+			print('Received: {}'.format(self.correctPasswords))
 
 	def part1(self):
-
-		if not self.calculated:
-			self.calculate()
-
-		print('Number of correct min max chat count')
-		print(self.correctCount)
+		print('Day 1 - part 1 result: {}'.format(self.correctPasswords))
 
 	def part2(self):
-		if not self.calculated:
-			self.calculate()
-
-		print('Number of correct char possition')
-		print(self.correctPos)
+		print('Day 1 - part 2 result: {}'.format(self.correctPositions))

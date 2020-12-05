@@ -1,60 +1,77 @@
-from util import fileUtil
+from util import file
 
 
 class Day1:
 	numbers = []
 	numberToForm = 2020
-	calculated = False
-	twoString = False
-	threeString = False
+	twoResult = None
+	threeResult = None
 
-	def setNumbers(self):
-		self.numbers = fileUtil.returnArrayOfLinesForOfFile(fileLocation='./inputs/inputday1', withIntParse=True)
+	def __init__(self):
+		self.test()
+		self.setNumbers()
+
+	def setNumbers(self, array=None):
+		self.numbers = []
+
+		if not array:
+			array = file.fileToArray(fileLocation='./inputs/inputday1', withIntParse=True)
+
+		self.numbers = array
+		self.calculate()
 
 	def calculate(self):
-		if not self.calculated:
-			self.setNumbers()
-
 		for number in self.numbers:
-			if self.twoString and self.threeString:
+			if self.twoResult and self.threeResult:
 				break
 
 			self.numbers.pop()
 
-			result = self.checkIfTwoNumbersIsTogether(number)
-			if result and not self.twoString:
-				self.twoString = "{} * {} = {}".format(result[0], result[1], result[0] * result[1])
+			result = self.checkTwoNumbers(number)
+			if result and not self.twoResult:
+				self.twoResult = result[0] * result[1]
 
-			result = self.checkIfThreeNumbersIsTogether(number)
-			if result and not self.threeString:
-				self.threeString = "{} * {} * {} = {}".format(result[0], result[1], result[2], result[0] * result[1] * result[2])
+			result = self.checkThreeNumbers(number)
+			if result and not self.threeResult:
+				self.threeResult = result[0] * result[1] * result[2]
 
-		self.calculated = True
+	def test(self):
+		example = [
+			1721,
+			979,
+			366,
+			299,
+			675,
+			1456,
+		]
+		self.setNumbers(example)
+		if self.twoResult and self.twoResult == 514579:
+			print("Day 1 - test: \033[32msuccess\033[0m")
+		else:
+			print('Day 1 test: \033[31failed\033[0m')
+			print('Received: {}'.format(self.twoResult))
 
 	def part1(self):
-		if not self.calculated:
-			self.calculate()
-
-		if self.twoString:
-			print('Found {} with two numbers'.format(self.numberToForm))
-			print(self.twoString)
+		if self.twoResult:
+			print('Day 1 - part 1 result: {}'.format(self.twoResult))
+		else:
+			print("Day 1 - part 1 result: \033[31failed\033[0m")
 
 	def part2(self):
-		if not self.calculated:
-			self.calculate()
+		if self.threeResult:
+			print('Day 1 - part 2 result: {}'.format(self.threeResult))
+		else:
+			print("Day 1 - part 2 result: \033[31failed\033[0m")
 
-		if self.threeString:
-			print('Found {} with three numbers'.format(self.numberToForm))
-			print(self.threeString)
-
-	def checkIfTwoNumbersIsTogether(self, number):
+	# @TODO make the functions recursive
+	def checkTwoNumbers(self, number):
 		for number2 in self.numbers:
 			if number + number2 == self.numberToForm:
 				result = [number, number2]
 				return result
 		return False
 
-	def checkIfThreeNumbersIsTogether(self, number):
+	def checkThreeNumbers(self, number):
 		for number2 in self.numbers:
 			for number3 in self.numbers:
 				if number == number3 or number2 == number3:

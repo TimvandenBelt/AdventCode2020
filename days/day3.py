@@ -1,4 +1,4 @@
-from util import fileUtil
+from util import file
 
 
 class TreeRow:
@@ -21,19 +21,21 @@ class TreeRow:
 
 
 class Day3:
-	inputArray = []
 	treeRows = []
 
 	def __init__(self):
+		self.test()
 		self.setTreeRows()
 
-	def setTreeRows(self):
-		self.inputArray = fileUtil.returnArrayOfLinesForOfFile(fileLocation='./inputs/inputday3')
-		for line in self.inputArray:
+	def setTreeRows(self, array=None):
+		self.treeRows = []
+		if not array:
+			array = file.fileToArray(fileLocation='./inputs/inputday3')
+		for line in array:
 			self.treeRows.append(TreeRow(line))
 
 	def calculate(self, dy, dx):
-		count = 0
+		trees = 0
 		rows = len(self.treeRows)
 		y = 0
 		x = 1
@@ -42,24 +44,44 @@ class Day3:
 			x += dx
 			try:
 				if self.treeRows[y].isTreeAtPosition(x):
-					count += 1
+					trees += 1
 			except IndexError:
 				break
-		return count
+		return trees
+
+	def test(self):
+		example = [
+			"..##.......",
+			"#...#...#..",
+			".#....#..#.",
+			"..#.#...#.#",
+			".#...##..#.",
+			"..#.##.....",
+			".#.#.#....#",
+			".#........#",
+			"#.##...#...",
+			"#...##....#",
+			".#..#...#.#",
+		]
+		self.setTreeRows(example)
+		trees = self.calculate(1, 3)
+		if trees == 7:
+			print("Day 3 - test: \033[32msuccess\033[0m")
+		else:
+			print('Day 3 test: \033[31failed\033[0m')
+			print('Received: {}'.format(trees))
 
 	def part1(self):
-		count = self.calculate(1, 3)
-		print('Amount of Trees found default pattern')
-		print(count)
+		trees = self.calculate(1, 3)
+		print('Day 3 - part 1 result: {}'.format(trees))
 
 	def part2(self):
 		slopes = [[1, 1], [1, 3], [1, 5], [1, 7], [2, 1]]
-		count = None
-		for slope in slopes:
-			if count is None:
-				count = self.calculate(slope[0], slope[1])
+		trees = None
+		for dy, dx in slopes:
+			if trees is None:
+				trees = self.calculate(dy, dx)
 				continue
-			count *= self.calculate(slope[0], slope[1])
+			trees *= self.calculate(dy, dx)
 
-		print('Amount of Trees found with other patterns')
-		print(count)
+		print('Day 3 - part 2 result: {}'.format(trees))

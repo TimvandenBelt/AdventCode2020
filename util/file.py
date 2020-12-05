@@ -1,7 +1,6 @@
 import fileinput
 
-
-def returnArrayOfLinesFromFileInput(fileLocation, withIntParse=False):
+def fileToArray(fileLocation, withIntParse=False):
 	with fileinput.input(files=(fileLocation)) as fileInput:
 		lines = []
 		for line in fileInput:
@@ -10,7 +9,3 @@ def returnArrayOfLinesFromFileInput(fileLocation, withIntParse=False):
 				line = int(line)
 			lines.append(line)
 		return lines
-
-
-def returnArrayOfLinesForOfFile(fileLocation, withIntParse=False):
-	return returnArrayOfLinesFromFileInput(fileLocation, withIntParse)
