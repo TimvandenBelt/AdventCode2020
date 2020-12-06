@@ -164,16 +164,15 @@ class Day4:
 		passport = Passport()
 		for line in self.input:
 			if line == '':
-				self.passports.append(passport)
-				if passport.hasAllBesidesCID():
-					self.countCorrectBesidesCID += 1
-					if passport.verifyAllBesidesCID():
-						self.countCorrectValuesBesidesCID += 1
+				self.calcAndPushPassport(passport)
 				passport = Passport()
 				continue
 
 			passport.processLine(line)
 
+		self.calcAndPushPassport(passport)
+
+	def calcAndPushPassport(self, passport):
 		self.passports.append(passport)
 		if passport.hasAllBesidesCID():
 			self.countCorrectBesidesCID += 1
