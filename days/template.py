@@ -32,7 +32,7 @@ class Day:
 	def loadInput(self, array=None):
 		self.input = []
 		if not array:
-			array = file.fileToArray(fileLocation='./inputs/inputday3')
+			array = file.fileToArray(fileLocation='./inputs/inputdayx')
 		self.input = array
 		self.process()
 
