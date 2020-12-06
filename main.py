@@ -4,6 +4,7 @@ from days.day2 import Day2
 from days.day3 import Day3
 from days.day4 import Day4
 from days.day5 import Day5
+from days.day6 import Day6
 
 # Load console output styles
 init(autoreset=True)
@@ -54,4 +55,14 @@ day5 = Day5()
 day5.part1()
 day5.part2()
 print("\033[33m========= \033[37mEND DAY 5\033[0m \033[33m===========\033[0m")
-# END DAY 4
+# END DAY 5
+
+print(Back.BLUE + Fore.BLACK + "########## - NEXT DAY - #######")
+
+# START DAY 6
+print("\033[33m========= \033[30mBEGIN DAY 6\033[0m \033[33m=========\033[0m")
+day6 = Day6()
+day6.part1()
+day6.part2()
+print("\033[33m========= \033[37mEND DAY 6\033[0m \033[33m===========\033[0m")
+# END DAY 6
