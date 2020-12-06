@@ -26,7 +26,7 @@ class Day:
 		if range(0, 1):
 			print("Day x - test: \033[32msuccess\033[0m")
 		else:
-			print('Day x test: \033[31failed\033[0m')
+			print('Day x test: \033[31mfailed\033[0m')
 			print('Received: {}'.format(input))
 
 	def loadInput(self, array=None):
